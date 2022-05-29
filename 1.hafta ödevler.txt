@@ -1,0 +1,30 @@
+1.Odev: Yedekleme Odevi
+
+#!/bin/bash
+for dizin  in $(ls /home)
+do
+        tar -zcvf /mnt/${dizin}_$(date +%d%m%Y_%H%M).tar.gz /home/${dizin}
+        md5sum /mnt/${dizin}_$(date +%d%m%Y_%H%M).tar.gz  | cut -d ' ' -f1  > /mnt/${dizin}_$(date +%d%m%Y_%H%M).tar.gz.md5.txt
+        echo $(date +%d%m%Y_%H%M) > /tmp/son.log
+done
+
+yedek adı =yasin_29052022_1536.tar.gz
+md5 dosya adı=yasin_29052022_1536.tar.gz.md5.txt
+son çalışma saati=tmp/son.log
+
+
+
+2.Odev: Alarm Odevi
+
+
+#!/bin/bash
+THRESHOLD=90
+EMAIL=yyasincoban@gmail.com
+PART=/boot
+USE=`df -h |grep $PART | awk '{ print $5 }' | cut -d'%' -f1`
+if [ $USE -gt $THRESHOLD ]; then
+  echo "KUllanılan yüzde: $USE" | mail -s "Disk Kullanım " -r yyasincoban@gmail.com $EMAIL
+fi
+
+
+
